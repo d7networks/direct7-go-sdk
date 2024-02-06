@@ -17,8 +17,7 @@ Then, reference direct7-go-sdk in a Go program with import:
 
 ```bash
 import (
-	"github.com/stripe/stripe-go/v76"
-	"github.com/stripe/stripe-go/v76/customer"
+	"github.com/d7networks/direct7-go-sdk/v0.0.4"
 )
 ```
 
@@ -27,7 +26,7 @@ Run any of the normal go commands (build/install/test). The Go toolchain will re
 Alternatively, you can also explicitly go get the package into a project:
 
 ```bash
-go get -u github.com/stripe/stripe-go/v76
+go get -u github.com/d7networks/direct7-go-sdk/v0.0.4
 ```
 
 ## Usage
