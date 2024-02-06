@@ -6,13 +6,13 @@ import (
 )
 
 func main() {
-	apiToken := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhdXRoLWJhY2tlbmQ6YXBwIiwic3ViIjoiOTM2M2FmNTUtYWRmMS00Y2YzLWJhNjEtNGRjNWIxOTE4NGUwIn0.rctBTKBUO2FERmv_j75ItWACpUDQ7NG14v1PeXlM1ks"
+	apiToken := "Your Api Token"
 	client := direct7.NewClient(apiToken)
 
 	// Example: Send SMS
 	messages := []Message{
 		{
-			recipients:  []string{"+918086757074"},
+			recipients:  []string{"+919999XXXXXX"},
 			content:     "Test message 1",
 			unicode:  "false",
 		}

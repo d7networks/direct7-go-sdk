@@ -6,13 +6,13 @@ import (
 
 // func TestSendMessagesAndGetStatus(t *testing.T) {
 // 	// Replace "YOUR_API_TOKEN" with your actual API token
-// 	apiToken := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhdXRoLWJhY2tlbmQ6YXBwIiwic3ViIjoiOTM2M2FmNTUtYWRmMS00Y2YzLWJhNjEtNGRjNWIxOTE4NGUwIn0.rctBTKBUO2FERmv_j75ItWACpUDQ7NG14v1PeXlM1ks"
+// 	apiToken := "Your Api Token"
 // 	client := NewClient(apiToken)
 // 	sms := NewSMS(client)
 
 // 	// Define a test message
 // 	testMessage := Message{
-// 		Recipients:  []string{"+918086757074"}, // Replace with the actual recipient number
+// 		Recipients:  []string{"+919999XXXXXX"}, // Replace with the actual recipient number
 // 		Content:     "Test message content",
 // 		Unicode:     "false",
 // 	}
@@ -37,12 +37,12 @@ import (
 
 // func TestNumberLookupSearchNumberDetails(t *testing.T) {
 // 	// Replace "YOUR_API_TOKEN" with your actual API token
-// 	apiToken := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhdXRoLWJhY2tlbmQ6YXBwIiwic3ViIjoiOTM2M2FmNTUtYWRmMS00Y2YzLWJhNjEtNGRjNWIxOTE4NGUwIn0.rctBTKBUO2FERmv_j75ItWACpUDQ7NG14v1PeXlM1ks"
+// 	apiToken := "Your Api Token"
 // 	client := NewClient(apiToken)
 // 	numberLookup := NewNumberLookup(client)
 
 // 	// Replace "RECIPIENT_PHONE_NUMBER" with the phone number you want to look up
-// 	recipient := "+918086757074"
+// 	recipient := "+919999XXXXXX"
 
 // 	response, err := numberLookup.SearchNumberDetails(recipient)
 // 	if err != nil {
@@ -55,7 +55,7 @@ import (
 
 // func TestSlackSendSlackMessage(t *testing.T) {
 // 	// Replace "YOUR_API_TOKEN" with your actual API token
-// 	apiToken := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhdXRoLWJhY2tlbmQ6YXBwIiwic3ViIjoiOTM2M2FmNTUtYWRmMS00Y2YzLWJhNjEtNGRjNWIxOTE4NGUwIn0.rctBTKBUO2FERmv_j75ItWACpUDQ7NG14v1PeXlM1ks"
+// 	apiToken := "Your Api Token"
 // 	client := NewClient(apiToken)
 // 	slack := NewSlack(client)
 
@@ -75,7 +75,7 @@ import (
 
 // func TestSlackGetStatus(t *testing.T) {
 // 	// Replace "YOUR_API_TOKEN" with your actual API token
-// 	apiToken := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhdXRoLWJhY2tlbmQ6YXBwIiwic3ViIjoiOTM2M2FmNTUtYWRmMS00Y2YzLWJhNjEtNGRjNWIxOTE4NGUwIn0.rctBTKBUO2FERmv_j75ItWACpUDQ7NG14v1PeXlM1ks"
+// 	apiToken := "Your Api Token"
 // 	client := NewClient(apiToken)
 // 	slack := NewSlack(client)
 
@@ -93,13 +93,13 @@ import (
 
 // func TestVerifySendOTP(t *testing.T) {
 // 	// Replace "YOUR_API_TOKEN" with your actual API token
-// 	apiToken := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhdXRoLWJhY2tlbmQ6YXBwIiwic3ViIjoiOTM2M2FmNTUtYWRmMS00Y2YzLWJhNjEtNGRjNWIxOTE4NGUwIn0.rctBTKBUO2FERmv_j75ItWACpUDQ7NG14v1PeXlM1ks"
+// 	apiToken := "Your Api Token"
 // 	client := NewClient(apiToken)
 // 	verify := NewVerify(client)
 
 // 	// Replace these values with actual data
 // 	originator := "SignOTP"
-// 	recipient := "+918086757074"
+// 	recipient := "+919999XXXXXX"
 // 	content := "Greetings from D7 API, your mobile verification code is: {}"
 // 	dataCoding := "text"
 // 	expiry := 600 // Expiry time in seconds
@@ -115,7 +115,7 @@ import (
 
 // func TestVerifyResendOTP(t *testing.T) {
 // 	// Replace "YOUR_API_TOKEN" with your actual API token
-// 	apiToken := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhdXRoLWJhY2tlbmQ6YXBwIiwic3ViIjoiOTM2M2FmNTUtYWRmMS00Y2YzLWJhNjEtNGRjNWIxOTE4NGUwIn0.rctBTKBUO2FERmv_j75ItWACpUDQ7NG14v1PeXlM1ks"
+// 	apiToken := "Your Api Token"
 // 	client := NewClient(apiToken)
 // 	verify := NewVerify(client)
 
@@ -132,7 +132,7 @@ import (
 
 // func TestVerifyVerifyOTP(t *testing.T) {
 // 	// Replace "YOUR_API_TOKEN" with your actual API token
-// 	apiToken := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhdXRoLWJhY2tlbmQ6YXBwIiwic3ViIjoiOTM2M2FmNTUtYWRmMS00Y2YzLWJhNjEtNGRjNWIxOTE4NGUwIn0.rctBTKBUO2FERmv_j75ItWACpUDQ7NG14v1PeXlM1ks"
+// 	apiToken := "Your Api Token"
 // 	client := NewClient(apiToken)
 // 	verify := NewVerify(client)
 
@@ -151,7 +151,7 @@ import (
 
 // func TestVerifyGetStatus(t *testing.T) {
 // 	// Replace "YOUR_API_TOKEN" with your actual API token
-// 	apiToken := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhdXRoLWJhY2tlbmQ6YXBwIiwic3ViIjoiOTM2M2FmNTUtYWRmMS00Y2YzLWJhNjEtNGRjNWIxOTE4NGUwIn0.rctBTKBUO2FERmv_j75ItWACpUDQ7NG14v1PeXlM1ks"
+// 	apiToken := "Your Api Token"
 // 	client := NewClient(apiToken)
 // 	verify := NewVerify(client)
 
@@ -169,12 +169,12 @@ import (
 
 // func TestViberSendViberMessage(t *testing.T) {
 // 	// Replace "YOUR_API_TOKEN" with your actual API token
-// 	apiToken := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhdXRoLWJhY2tlbmQ6YXBwIiwic3ViIjoiOTM2M2FmNTUtYWRmMS00Y2YzLWJhNjEtNGRjNWIxOTE4NGUwIn0.rctBTKBUO2FERmv_j75ItWACpUDQ7NG14v1PeXlM1ks"
+// 	apiToken := "Your Api Token"
 // 	client := NewClient(apiToken)
 // 	viber := NewViber(client)
 
 // 	// Replace the values below with actual data
-// 	recipients := []string{"+918086757074"}
+// 	recipients := []string{"+919999XXXXXX"}
 // 	content := "Test Viber message"
 // 	label := "PROMOTION"
 // 	originator := "INFO2WAY"
@@ -190,7 +190,7 @@ import (
 
 // func TestViberGetStatus(t *testing.T) {
 // 	// Replace "YOUR_API_TOKEN" with your actual API token
-// 	apiToken := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhdXRoLWJhY2tlbmQ6YXBwIiwic3ViIjoiOTM2M2FmNTUtYWRmMS00Y2YzLWJhNjEtNGRjNWIxOTE4NGUwIn0.rctBTKBUO2FERmv_j75ItWACpUDQ7NG14v1PeXlM1ks"
+// 	apiToken := "Your Api Token"
 // 	client := NewClient(apiToken)
 // 	viber := NewViber(client)
 
@@ -207,13 +207,13 @@ import (
 
 // func TestWhatsAppSendWhatsAppFreeformMessage(t *testing.T) {
 // 	// Replace "YOUR_API_TOKEN" with your actual API token
-// 	apiToken := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhdXRoLWJhY2tlbmQ6YXBwIiwic3ViIjoiOTM2M2FmNTUtYWRmMS00Y2YzLWJhNjEtNGRjNWIxOTE4NGUwIn0.rctBTKBUO2FERmv_j75ItWACpUDQ7NG14v1PeXlM1ks"
+// 	apiToken := "Your Api Token"
 // 	client := NewClient(apiToken)
 // 	whatsapp := NewWhatsApp(client)
 
 // 	// Replace with appropriate values for your test
 // 	originator := "+919061525574"
-// 	recipient := "+918086757074"
+// 	recipient := "+919999XXXXXX"
 // 	messageType := "TEXT"
 // 	optParams := &OptionalParams{messageText: "HI"}
 // 	response, err := whatsapp.SendWhatsAppFreeformMessage(originator, recipient, messageType, optParams)
@@ -227,13 +227,13 @@ import (
 
 // func TestWhatsAppSendWhatsAppTemplatedMessage(t *testing.T) {
 // 	// Replace "YOUR_API_TOKEN" with your actual API token
-// 	apiToken := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhdXRoLWJhY2tlbmQ6YXBwIiwic3ViIjoiOTM2M2FmNTUtYWRmMS00Y2YzLWJhNjEtNGRjNWIxOTE4NGUwIn0.rctBTKBUO2FERmv_j75ItWACpUDQ7NG14v1PeXlM1ks"
+// 	apiToken := "Your Api Token"
 // 	client := NewClient(apiToken)
 // 	whatsapp := NewWhatsApp(client)
 
 // 	// Replace the placeholders with your test data
 // 	originator := "+919061525574"
-// 	recipient := "+918086757074"
+// 	recipient := "+919999XXXXXX"
 // 	templateID := "marketing_media_image"
 // 	optParams := &OptionalParams{mediaType: "image", mediaURL: "https://25428574.fs1.hubspotusercontent-eu1.net/hubfs/25428574/D7%20Logo%20rect.webp", bodyParameterValues: map[string]interface{}{
 // 		"0": "Anu",
@@ -249,7 +249,7 @@ import (
 
 func TestWhatsappGetStatus(t *testing.T) {
 	// Replace "YOUR_API_TOKEN" with your actual API token
-	apiToken := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhdXRoLWJhY2tlbmQ6YXBwIiwic3ViIjoiOTM2M2FmNTUtYWRmMS00Y2YzLWJhNjEtNGRjNWIxOTE4NGUwIn0.rctBTKBUO2FERmv_j75ItWACpUDQ7NG14v1PeXlM1ks"
+	apiToken := "Your Api Token"
 	client := NewClient(apiToken)
 	whatsapp := NewWhatsApp(client)
 
