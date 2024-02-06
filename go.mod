@@ -1,4 +1,4 @@
-module github.com/d7networks/direct7-go-sdk/v0.0.2
+module github.com/d7networks/direct7-go-sdk/v0.0.3
 
 go 1.18
 
