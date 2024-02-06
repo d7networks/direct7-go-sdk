@@ -21,7 +21,7 @@ import (
 )
 ```
 
-Run any of the normal go commands (build/install/test). The Go toolchain will resolve and fetch the stripe-go module automatically.
+Run any of the normal go commands (build/install/test). The Go toolchain will resolve and fetch the direct7-go module automatically.
 
 Alternatively, you can also explicitly go get the package into a project:
 
