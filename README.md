@@ -297,6 +297,10 @@ response, err := slack.SendSlackMessage(content, workSpaceName, channelName, rep
 
 You can get your API token from the Direct7 dashboard. If you don't have an account yet, you can create one for free.
 
+### License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
 ### Supported Go versions
 
 The SDK supports go 1.18 and higher.
