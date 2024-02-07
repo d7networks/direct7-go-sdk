@@ -25,5 +25,5 @@ func (nl *NumberLookup) SearchNumberDetails(recipient string) ([]byte, error) {
 		return nil, err
 	}
 	log.Println("Search request is successful.")
-	return response, nil
+	return string(response), nil
 }
