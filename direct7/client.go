@@ -6,22 +6,24 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
+	"net/url"
 	"strings"
 	"time"
-	"net/url"
-	"log"
 )
 
 // Client struct represents the D7 API client in Go.
 type Client struct {
-	apiToken string
-	host     string
-	headers  http.Header
-	sms      *SMS
-	number_lookup	*NumberLookup
-	// slack	*Slack
-	// verify	*Verify
+	apiToken      string
+	host          string
+	headers       http.Header
+	sms           *SMS
+	numberLookup *NumberLookup
+	slack         *Slack
+	verify        *Verify
+	whatsapp      *WhatsApp
+	viber         *Viber
 	// Add other services here
 }
 
@@ -36,9 +38,11 @@ func NewClient(apiToken string) *Client {
 		},
 	}
 	client.sms = NewSMS(client)
-	client.number_lookup = NewNumberLookup(client)
-	// client.slack = Slack(client)
-	// client.verify = Verify(client)
+	client.numberLookup = NewNumberLookup(client)
+	client.slack = NewSlack(client)
+	client.verify = NewVerify(client)
+	client.whatsapp = NewWhatsApp(client)
+	client.viber = NewViber(client)
 	// Initialize other services here
 	return client
 }
@@ -74,7 +78,7 @@ func (c *Client) processResponse(response *http.Response) ([]byte, error) {
 	case http.StatusUnauthorized:
 		return nil, errors.New("Invalid API token")
 	case http.StatusBadRequest:
-return nil, errors.New("Client error: " + fmt.Sprint(response.StatusCode) + " " + string(body))
+		return nil, errors.New("Client error: " + fmt.Sprint(response.StatusCode) + " " + string(body))
 	case http.StatusNotFound:
 		return nil, errors.New("Not Found: " + string(body))
 	case http.StatusPaymentRequired:
