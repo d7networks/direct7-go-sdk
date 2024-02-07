@@ -16,7 +16,7 @@ func NewSlack(client *Client) *Slack {
 }
 
 // SendSlackMessage sends a Slack message to a single workspace.
-func (s *Slack) SendSlackMessage(content, workSpaceName, channelName, reportURL string) ([]byte, error) {
+func (s *Slack) SendSlackMessage(content, workSpaceName, channelName, reportURL string) (string, error) {
 	message := map[string]interface{}{
 		"channel":        "slack",
 		"content":        content,
@@ -32,17 +32,17 @@ func (s *Slack) SendSlackMessage(content, workSpaceName, channelName, reportURL 
 	}
 	response, err := s.client.Post("/messages/v1/send", true, payload)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 	log.Println("Message sent successfully.")
 	return string(response), nil
 }
 
 // GetStatus retrieves the status for a Slack message request.
-func (s *Slack) GetStatus(requestID string) ([]byte, error) {
+func (s *Slack) GetStatus(requestID string) (string, error) {
 	response, err := s.client.Get(fmt.Sprintf("/report/v1/message-log/%s", requestID), nil)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 	log.Println("Message status retrieved successfully.")
 	return string(response), nil

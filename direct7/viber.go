@@ -16,7 +16,7 @@ func NewViber(client *Client) *Viber {
 }
 
 // SendViberMessage sends a Viber message to one or more recipients.
-func (v *Viber) SendViberMessage(recipients []string, content, label, originator, callBackURL string) ([]byte, error) {
+func (v *Viber) SendViberMessage(recipients []string, content, label, originator, callBackURL string) (string, error) {
 	message := map[string]interface{}{
 		"channel":     "viber",
 		"recipients":  recipients,
@@ -30,17 +30,17 @@ func (v *Viber) SendViberMessage(recipients []string, content, label, originator
 
 	response, err := v.client.Post("/viber/v1/send", true, map[string]interface{}{"messages": []interface{}{message}, "message_globals": messageGlobals})
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 	log.Println("Message sent successfully.")
 	return string(response), nil
 }
 
 // GetStatus retrieves the status for a Viber message request.
-func (v *Viber) GetStatus(requestID string) ([]byte, error) {
+func (v *Viber) GetStatus(requestID string) (string, error) {
 	response, err := v.client.Get(fmt.Sprintf("/report/v1/viber-log/%s", requestID), nil)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 	log.Println("Message status retrieved successfully.")
 	return string(response), nil

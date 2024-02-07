@@ -15,14 +15,14 @@ func NewNumberLookup(client *Client) *NumberLookup {
 }
 
 // SearchNumberDetails searches for number details.
-func (nl *NumberLookup) SearchNumberDetails(recipient string) ([]byte, error) {
+func (nl *NumberLookup) SearchNumberDetails(recipient string) (string, error) {
 	params := map[string]interface {}{
 		"recipient": recipient,
 	}
 	log.Println(params)
 	response, err := nl.client.Post("/hlr/v1/lookup", true, params)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 	log.Println("Search request is successful.")
 	return string(response), nil

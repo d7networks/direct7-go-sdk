@@ -17,7 +17,7 @@ func NewVerify(client *Client) *Verify {
 }
 
 // SendOTP sends an OTP to a single recipient.
-func (v *Verify) SendOTP(originator, recipient, content, dataCoding string, expiry int, templateID int) ([]byte, error) {
+func (v *Verify) SendOTP(originator, recipient, content, dataCoding string, expiry int, templateID int) (string, error) {
 	params := map[string]interface{}{
 		"originator":  originator,
 		"recipient":   recipient,
@@ -36,18 +36,18 @@ func (v *Verify) SendOTP(originator, recipient, content, dataCoding string, expi
 	log.Println(params)
 	response, err := v.client.Post("/verify/v1/otp/send-otp", true, params)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 	log.Println("OTP message sent successfully.")
 	return string(response), nil
 }
 
 // ResendOTP re-sends an OTP to a single recipient.
-func (v *Verify) ResendOTP(otpID string) ([]byte, error) {
+func (v *Verify) ResendOTP(otpID string) (string, error) {
 	// Parse the OTP ID string into a UUID
 	otpUUID, err := uuid.Parse(otpID)
 	if err != nil {
-		return nil, fmt.Errorf("error parsing OTP ID: %v", err)
+		return "", fmt.Errorf("error parsing OTP ID: %v", err)
 	}
 
 	params := map[string]interface{}{
@@ -55,17 +55,17 @@ func (v *Verify) ResendOTP(otpID string) ([]byte, error) {
 	}
 	response, err := v.client.Post("/verify/v1/otp/resend-otp", true, params)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 	log.Println("OTP message re-sent successfully.")
 	return string(response), nil
 }
 
 // VerifyOTP verifies an OTP.
-func (v *Verify) VerifyOTP(otpID, otpCode string) ([]byte, error) {
+func (v *Verify) VerifyOTP(otpID, otpCode string) (string, error) {
 	otpUUID, err := uuid.Parse(otpID)
 	if err != nil {
-		return nil, fmt.Errorf("error parsing OTP ID: %v", err)
+		return "", fmt.Errorf("error parsing OTP ID: %v", err)
 	}
 	params := map[string]interface{}{
 		"otp_id":   otpUUID,
@@ -73,17 +73,17 @@ func (v *Verify) VerifyOTP(otpID, otpCode string) ([]byte, error) {
 	}
 	response, err := v.client.Post("/verify/v1/otp/verify-otp", true, params)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 	log.Println("OTP message verified successfully.")
 	return string(response), nil
 }
 
 // GetStatus gets the status for an OTP request.
-func (v *Verify) GetStatus(otpID string) ([]byte, error) {
+func (v *Verify) GetStatus(otpID string) (string, error) {
 	response, err := v.client.Get("/verify/v1/report/"+otpID, nil)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 	log.Println("OTP message status retrieved successfully.")
 	return string(response), nil

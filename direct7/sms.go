@@ -17,7 +17,7 @@ func NewSMS(client *Client) *SMS {
 }
 
 // SendMessages sends one or more messages to a single/multiple recipient(s).
-func (s *SMS) SendMessages(messages []Message, originator, reportURL, scheduleTime string) ([]byte, error) {
+func (s *SMS) SendMessages(messages []Message, originator, reportURL, scheduleTime string) (string, error) {
 	payload := MessagePayload{
 		Messages: messages,
 		MessageGlobals: MessageGlobals{
@@ -28,17 +28,17 @@ func (s *SMS) SendMessages(messages []Message, originator, reportURL, scheduleTi
 	}
 	response, err := s.client.Post("/messages/v1/send", true, payload)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 	log.Println("Messages sent successfully.")
 	return string(response), nil
 }
 
 // GetStatus retrieves the status for a message request.
-func (s *SMS) GetStatus(requestID string) ([]byte, error) {
+func (s *SMS) GetStatus(requestID string) (string, error) {
 	response, err := s.client.Get(fmt.Sprintf("/report/v1/message-log/%s", requestID), nil)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 	log.Println("Message status retrieved successfully.")
 	return string(response), nil
