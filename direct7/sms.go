@@ -31,7 +31,7 @@ func (s *SMS) SendMessages(messages []Message, originator, reportURL, scheduleTi
 		return nil, err
 	}
 	log.Println("Messages sent successfully.")
-	return response, nil
+	return string(response), nil
 }
 
 // GetStatus retrieves the status for a message request.
@@ -41,7 +41,7 @@ func (s *SMS) GetStatus(requestID string) ([]byte, error) {
 		return nil, err
 	}
 	log.Println("Message status retrieved successfully.")
-	return response, nil
+	return string(response), nil
 }
 
 // MessagePayload represents the payload structure for sending messages.

@@ -35,7 +35,7 @@ func (s *Slack) SendSlackMessage(content, workSpaceName, channelName, reportURL 
 		return nil, err
 	}
 	log.Println("Message sent successfully.")
-	return response, nil
+	return string(response), nil
 }
 
 // GetStatus retrieves the status for a Slack message request.
@@ -45,5 +45,5 @@ func (s *Slack) GetStatus(requestID string) ([]byte, error) {
 		return nil, err
 	}
 	log.Println("Message status retrieved successfully.")
-	return response, nil
+	return string(response), nil
 }

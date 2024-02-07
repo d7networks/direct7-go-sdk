@@ -39,7 +39,7 @@ func (v *Verify) SendOTP(originator, recipient, content, dataCoding string, expi
 		return nil, err
 	}
 	log.Println("OTP message sent successfully.")
-	return response, nil
+	return string(response), nil
 }
 
 // ResendOTP re-sends an OTP to a single recipient.
@@ -58,7 +58,7 @@ func (v *Verify) ResendOTP(otpID string) ([]byte, error) {
 		return nil, err
 	}
 	log.Println("OTP message re-sent successfully.")
-	return response, nil
+	return string(response), nil
 }
 
 // VerifyOTP verifies an OTP.
@@ -76,7 +76,7 @@ func (v *Verify) VerifyOTP(otpID, otpCode string) ([]byte, error) {
 		return nil, err
 	}
 	log.Println("OTP message verified successfully.")
-	return response, nil
+	return string(response), nil
 }
 
 // GetStatus gets the status for an OTP request.
@@ -86,5 +86,5 @@ func (v *Verify) GetStatus(otpID string) ([]byte, error) {
 		return nil, err
 	}
 	log.Println("OTP message status retrieved successfully.")
-	return response, nil
+	return string(response), nil
 }

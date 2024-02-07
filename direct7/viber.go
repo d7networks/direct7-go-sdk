@@ -33,7 +33,7 @@ func (v *Viber) SendViberMessage(recipients []string, content, label, originator
 		return nil, err
 	}
 	log.Println("Message sent successfully.")
-	return response, nil
+	return string(response), nil
 }
 
 // GetStatus retrieves the status for a Viber message request.
@@ -43,5 +43,5 @@ func (v *Viber) GetStatus(requestID string) ([]byte, error) {
 		return nil, err
 	}
 	log.Println("Message status retrieved successfully.")
-	return response, nil
+	return string(response), nil
 }

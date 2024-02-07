@@ -94,7 +94,7 @@ func (w *WhatsApp) SendWhatsAppFreeformMessage(
 		return nil, err
 	}
 	log.Println("WhatsApp message sent successfully.")
-	return response, nil
+	return string(response), nil
 }
 
 // SendWhatsAppTemplatedMessage sends a WhatsApp message using a template.
@@ -135,7 +135,7 @@ func (w *WhatsApp) SendWhatsAppTemplatedMessage(originator, recipient, templateI
 		return nil, err
 	}
 	log.Println("Message sent successfully.")
-	return response, nil
+	return string(response), nil
 }
 
 // GetStatus retrieves the status for a WhatsApp message request.
@@ -145,5 +145,5 @@ func (w *WhatsApp) GetStatus(requestID string) ([]byte, error) {
 		return nil, err
 	}
 	log.Println("Message status retrieved successfully.")
-	return response, nil
+	return string(response), nil
 }
