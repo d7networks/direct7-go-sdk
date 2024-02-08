@@ -7,14 +7,12 @@ import (
 func TestSendMessagesAndGetStatus(t *testing.T) {
 	apiToken := "Your_Api_Token"
 	client := NewClient(apiToken)
-	// Define a test message
 	testMessage := Message{
-		Recipients: []string{"+919999XXXXXX"}, // Replace with the actual recipient number
+		Recipients: []string{"+919999XXXXXX"},
 		Content:    "Test message content",
 		Unicode:    "false",
 	}
 
-	// Send the test message
 	response, err := client.sms.SendMessages([]Message{testMessage}, "TestSender", "", "")
 	if err != nil {
 		t.Errorf("Failed to send message: %v", err)
@@ -23,7 +21,6 @@ func TestSendMessagesAndGetStatus(t *testing.T) {
 	t.Logf("SendMessages response: %s", response)
 
 	requestID := "001ff613-de30-4f82-81f6-1fe944b8f61b"
-	// Get status of the sent message
 	statusResponse, err := client.sms.GetStatus(requestID)
 	if err != nil {
 		t.Errorf("Failed to get message status: %v", err)
@@ -35,7 +32,6 @@ func TestSendMessagesAndGetStatus(t *testing.T) {
 func TestNumberLookupSearchNumberDetails(t *testing.T) {
 	apiToken := "Your_Api_Token"
 	client := NewClient(apiToken)
-	// Replace "RECIPIENT_PHONE_NUMBER" with the phone number you want to look up
 	recipient := "+919999XXXXXX"
 
 	response, err := client.numberLookup.SearchNumberDetails(recipient)
@@ -49,7 +45,6 @@ func TestNumberLookupSearchNumberDetails(t *testing.T) {
 func TestSlackSendSlackMessage(t *testing.T) {
 	apiToken := "Your_Api_Token"
 	client := NewClient(apiToken)
-	// Replace the placeholders with actual values
 	content := "Test message content"
 	workSpaceName := "D7-dev"
 	channelName := "random"
@@ -66,7 +61,6 @@ func TestSlackSendSlackMessage(t *testing.T) {
 func TestSlackGetStatus(t *testing.T) {
 	apiToken := "Your_Api_Token"
 	client := NewClient(apiToken)
-	// Replace "REQUEST_ID" with the actual request ID
 	requestID := "001ff613-de30-4f82-81f6-1fe944b8f61b"
 
 	response, err := client.slack.GetStatus(requestID)
@@ -80,13 +74,12 @@ func TestSlackGetStatus(t *testing.T) {
 func TestVerifySendOTP(t *testing.T) {
 	apiToken := "Your_Api_Token"
 	client := NewClient(apiToken)
-	// Replace these values with actual data
 	originator := "SignOTP"
 	recipient := "+919999XXXXXX"
 	content := "Greetings from D7 API, your mobile verification code is: {}"
 	dataCoding := "text"
-	expiry := 600   // Expiry time in seconds
-	templateID := 0 // Your verification template ID, if applicable
+	expiry := 600 
+	templateID := 0
 
 	response, err := client.verify.SendOTP(originator, recipient, content, dataCoding, expiry, templateID)
 	if err != nil {
@@ -99,7 +92,6 @@ func TestVerifySendOTP(t *testing.T) {
 func TestVerifyResendOTP(t *testing.T) {
 	apiToken := "Your_Api_Token"
 	client := NewClient(apiToken)
-	// Replace "YOUR_OTP_ID" with the OTP ID you received
 	otpID := "aeffa23f-1204-4e17-bb91-adf6de2cf826"
 
 	response, err := client.verify.ResendOTP(otpID)
@@ -113,9 +105,7 @@ func TestVerifyResendOTP(t *testing.T) {
 func TestVerifyVerifyOTP(t *testing.T) {
 	apiToken := "Your_Api_Token"
 	client := NewClient(apiToken)
-	// Replace "YOUR_OTP_ID" with the OTP ID you received
 	otpID := "32549451-0eb6-4788-8e91-32b2eb9c4260"
-	// Replace "YOUR_OTP_CODE" with the OTP code you received
 	otpCode := "803053"
 
 	response, err := client.verify.VerifyOTP(otpID, otpCode)
@@ -129,7 +119,6 @@ func TestVerifyVerifyOTP(t *testing.T) {
 func TestVerifyGetStatus(t *testing.T) {
 	apiToken := "Your_Api_Token"
 	client := NewClient(apiToken)
-	// Replace "YOUR_OTP_ID" with the OTP ID you received
 	otpID := "32549451-0eb6-4788-8e91-32b2eb9c4260"
 
 	response, err := client.verify.GetStatus(otpID)
@@ -143,7 +132,6 @@ func TestVerifyGetStatus(t *testing.T) {
 func TestViberSendViberMessage(t *testing.T) {
 	apiToken := "Your_Api_Token"
 	client := NewClient(apiToken)
-	// Replace the values below with actual data
 	recipients := []string{"+919999XXXXXX"}
 	content := "Test Viber message"
 	label := "PROMOTION"
@@ -161,7 +149,6 @@ func TestViberSendViberMessage(t *testing.T) {
 func TestViberGetStatus(t *testing.T) {
 	apiToken := "Your_Api_Token"
 	client := NewClient(apiToken)
-	// Replace "YOUR_REQUEST_ID" with the actual request ID
 	requestID := "642f4df4-a9a2-4be0-8834-d1f79f28c045"
 
 	response, err := client.viber.GetStatus(requestID)
@@ -175,7 +162,6 @@ func TestViberGetStatus(t *testing.T) {
 func TestWhatsAppSendWhatsAppFreeformMessage(t *testing.T) {
 	apiToken := "Your_Api_Token"
 	client := NewClient(apiToken)
-	// Replace with appropriate values for your test
 	originator := "+91906XXXXXX"
 	recipient := "+919999XXXXXX"
 	messageType := "TEXT"
@@ -191,7 +177,6 @@ func TestWhatsAppSendWhatsAppFreeformMessage(t *testing.T) {
 func TestWhatsAppSendWhatsAppTemplatedMessage(t *testing.T) {
 	apiToken := "Your_Api_Token"
 	client := NewClient(apiToken)
-	// Replace the placeholders with your test data
 	originator := "+91906XXXXXX"
 	recipient := "+919999XXXXXX"
 	templateID := "marketing_media_image"
@@ -210,7 +195,6 @@ func TestWhatsAppSendWhatsAppTemplatedMessage(t *testing.T) {
 func TestWhatsappGetStatus(t *testing.T) {
 	apiToken := "Your_Api_Token"
 	client := NewClient(apiToken)
-	// Replace "YOUR_REQUEST_ID" with the actual request ID
 	requestID := "4c055731-8bf3-4806-bed9-89a9046462a8"
 
 	response, err := client.whatsapp.GetStatus(requestID)

@@ -1,4 +1,3 @@
-// sms.go
 package direct7
 
 import (
@@ -6,17 +5,14 @@ import (
 	"log"
 )
 
-// SMS struct represents the SMS service in Go.
 type SMS struct {
 	client *Client
 }
 
-// NewSMS creates a new instance of the SMS service.
 func NewSMS(client *Client) *SMS {
 	return &SMS{client: client}
 }
 
-// SendMessages sends one or more messages to a single/multiple recipient(s).
 func (s *SMS) SendMessages(messages []Message, originator, reportURL, scheduleTime string) (string, error) {
 	payload := MessagePayload{
 		Messages: messages,
@@ -34,7 +30,6 @@ func (s *SMS) SendMessages(messages []Message, originator, reportURL, scheduleTi
 	return string(response), nil
 }
 
-// GetStatus retrieves the status for a message request.
 func (s *SMS) GetStatus(requestID string) (string, error) {
 	response, err := s.client.Get(fmt.Sprintf("/report/v1/message-log/%s", requestID), nil)
 	if err != nil {
@@ -44,20 +39,17 @@ func (s *SMS) GetStatus(requestID string) (string, error) {
 	return string(response), nil
 }
 
-// MessagePayload represents the payload structure for sending messages.
 type MessagePayload struct {
 	Messages       []Message       `json:"messages"`
 	MessageGlobals MessageGlobals  `json:"message_globals"`
 }
 
-// MessageGlobals represents global parameters for a message request.
 type MessageGlobals struct {
 	Originator   string `json:"originator"`
 	ReportURL    string `json:"report_url,omitempty"`
 	ScheduleTime string `json:"schedule_time,omitempty"`
 }
 
-// Message represents a message in Go.
 type Message struct {
     Recipients []string `json:"recipients"`
     Content    string   `json:"content"`

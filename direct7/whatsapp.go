@@ -4,12 +4,10 @@ import (
 	"log"
 )
 
-// WhatsApp represents the WhatsApp service in Go.
 type WhatsApp struct {
 	client *Client
 }
 
-// NewWhatsApp creates a new instance of the WhatsApp service.
 func NewWhatsApp(client *Client) *WhatsApp {
 	return &WhatsApp{client: client}
 }
@@ -35,7 +33,6 @@ type OptionalParams struct {
 
 }
 
-// SendWhatsAppFreeformMessage sends a WhatsApp message to one or more recipients.
 func (w *WhatsApp) SendWhatsAppFreeformMessage(
 	originator, recipient, messageType string, optParams *OptionalParams ) (string, error) {
 	message := map[string]interface{}{
@@ -97,7 +94,6 @@ func (w *WhatsApp) SendWhatsAppFreeformMessage(
 	return string(response), nil
 }
 
-// SendWhatsAppTemplatedMessage sends a WhatsApp message using a template.
 func (w *WhatsApp) SendWhatsAppTemplatedMessage(originator, recipient, templateID string, optParams *OptionalParams) (string, error) {
 	message := map[string]interface{}{
 		"originator": originator,
@@ -138,7 +134,6 @@ func (w *WhatsApp) SendWhatsAppTemplatedMessage(originator, recipient, templateI
 	return string(response), nil
 }
 
-// GetStatus retrieves the status for a WhatsApp message request.
 func (w *WhatsApp) GetStatus(requestID string) (string, error) {
 	response, err := w.client.Get("/whatsapp/v1/report/"+requestID, nil)
 	if err != nil {

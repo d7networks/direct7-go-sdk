@@ -13,7 +13,6 @@ import (
 	"time"
 )
 
-// Client struct represents the D7 API client in Go.
 type Client struct {
 	apiToken      string
 	host          string
@@ -24,10 +23,8 @@ type Client struct {
 	verify        *Verify
 	whatsapp      *WhatsApp
 	viber         *Viber
-	// Add other services here
 }
 
-// NewClient creates a new instance of the D7 API client.
 func NewClient(apiToken string) *Client {
 	client := &Client{
 		apiToken: apiToken,
@@ -43,21 +40,17 @@ func NewClient(apiToken string) *Client {
 	client.verify = NewVerify(client)
 	client.whatsapp = NewWhatsApp(client)
 	client.viber = NewViber(client)
-	// Initialize other services here
 	return client
 }
 
-// SetHost sets the host for the API client.
 func (c *Client) SetHost(host string) {
 	c.host = host
 }
 
-// SetHeader sets a custom header for the API client.
 func (c *Client) SetHeader(key, value string) {
 	c.headers.Set(key, value)
 }
 
-// processResponse handles the response from the D7 API.
 func (c *Client) processResponse(response *http.Response) ([]byte, error) {
 	defer response.Body.Close()
 
@@ -66,7 +59,6 @@ func (c *Client) processResponse(response *http.Response) ([]byte, error) {
 		return nil, err
 	}
 
-	// Handle different HTTP status codes
 	switch response.StatusCode {
 	case http.StatusOK:
 		var result map[string]interface{}
@@ -92,7 +84,6 @@ func (c *Client) processResponse(response *http.Response) ([]byte, error) {
 	}
 }
 
-// Get sends an HTTP GET request to the D7 API.
 func (c *Client) Get(path string, params map[string]string) ([]byte, error) {
 	url := c.host + path
 	request, err := http.NewRequest("GET", url, nil)
@@ -147,7 +138,6 @@ func (c *Client) Post(path string, bodyIsJSON bool, payload interface{}) ([]byte
 		request.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	}
 
-	// Set headers for the request
 	for key, values := range c.headers {
 		for _, value := range values {
 			request.Header.Add(key, value)

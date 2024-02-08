@@ -6,17 +6,14 @@ import (
 	"fmt"
 )
 
-// VERIFY struct represents the VERIFY service in Go.
 type Verify struct {
 	client *Client
 }
 
-// NewVerify creates a new instance of the VERIFY service.
 func NewVerify(client *Client) *Verify {
 	return &Verify{client: client}
 }
 
-// SendOTP sends an OTP to a single recipient.
 func (v *Verify) SendOTP(originator, recipient, content, dataCoding string, expiry int, templateID int) (string, error) {
 	params := map[string]interface{}{
 		"originator":  originator,
@@ -42,9 +39,7 @@ func (v *Verify) SendOTP(originator, recipient, content, dataCoding string, expi
 	return string(response), nil
 }
 
-// ResendOTP re-sends an OTP to a single recipient.
 func (v *Verify) ResendOTP(otpID string) (string, error) {
-	// Parse the OTP ID string into a UUID
 	otpUUID, err := uuid.Parse(otpID)
 	if err != nil {
 		return "", fmt.Errorf("error parsing OTP ID: %v", err)
@@ -61,7 +56,6 @@ func (v *Verify) ResendOTP(otpID string) (string, error) {
 	return string(response), nil
 }
 
-// VerifyOTP verifies an OTP.
 func (v *Verify) VerifyOTP(otpID, otpCode string) (string, error) {
 	otpUUID, err := uuid.Parse(otpID)
 	if err != nil {
@@ -79,7 +73,6 @@ func (v *Verify) VerifyOTP(otpID, otpCode string) (string, error) {
 	return string(response), nil
 }
 
-// GetStatus gets the status for an OTP request.
 func (v *Verify) GetStatus(otpID string) (string, error) {
 	response, err := v.client.Get("/verify/v1/report/"+otpID, nil)
 	if err != nil {

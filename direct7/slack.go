@@ -5,17 +5,14 @@ import (
 	"log"
 )
 
-// Slack struct represents the Slack service in Go.
 type Slack struct {
 	client *Client
 }
 
-// NewSlack creates a new instance of the Slack service.
 func NewSlack(client *Client) *Slack {
 	return &Slack{client: client}
 }
 
-// SendSlackMessage sends a Slack message to a single workspace.
 func (s *Slack) SendSlackMessage(content, workSpaceName, channelName, reportURL string) (string, error) {
 	message := map[string]interface{}{
 		"channel":        "slack",
@@ -38,7 +35,6 @@ func (s *Slack) SendSlackMessage(content, workSpaceName, channelName, reportURL 
 	return string(response), nil
 }
 
-// GetStatus retrieves the status for a Slack message request.
 func (s *Slack) GetStatus(requestID string) (string, error) {
 	response, err := s.client.Get(fmt.Sprintf("/report/v1/message-log/%s", requestID), nil)
 	if err != nil {
