@@ -12,7 +12,7 @@ func main() {
 
 	messages := []direct7.Message{
 		{
-			Recipients: []string{"+918086757074"},
+			Recipients: []string{"+XXXXXXX"},
 			Content:    "Test message 1",
 			Unicode:    "false",
 		},
