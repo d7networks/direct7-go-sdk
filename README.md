@@ -159,7 +159,7 @@ response, err := verify.VerifyOTP(otpID, otpCode)
 
 ### Whatsapp
 
-### Send Whatsapp Free-form Message (Contact Details)
+### Send Whatsapp Free-form Message (Text message)
 
 ```go
 import (
