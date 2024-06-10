@@ -159,13 +159,14 @@ func TestViberGetStatus(t *testing.T) {
 	t.Logf("Viber message status retrieved successfully. Response: %s", response)
 }
 
-func TestWhatsAppSendWhatsAppFreeformMessageNormal(t *testing.T) {
+Whatsapp: Text
+func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
 	apiToken := "Your_Api_Token"
 	client := NewClient(apiToken)
-	originator := "+91906XXXXXX"
-	recipient := "+919999XXXXXX"
+	originator := "+97156XXXXXXXX"
+	recipient := "+9180867XXXXXXX"
 	messageType := "TEXT"
-	optParams := &OptionalParams{body: "HI"}
+	optParams := &OptionalParams{body: "Hi"}
 	response, err := client.whatsapp.SendWhatsAppFreeformMessage(originator, recipient, messageType, optParams)
 	if err != nil {
 		t.Fatalf("Error sending WhatsApp message: %v", err)
@@ -174,23 +175,541 @@ func TestWhatsAppSendWhatsAppFreeformMessageNormal(t *testing.T) {
 	t.Logf("WhatsApp message sent successfully. Response: %s", response)
 }
 
-func TestWhatsAppSendWhatsAppTemplatedMessage(t *testing.T) {
+// Whatsapp: Reaction
+func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
 	apiToken := "Your_Api_Token"
 	client := NewClient(apiToken)
-	originator := "+91906XXXXXX"
-	recipient := "+919999XXXXXX"
-	templateID := "marketing_media_image"
-	optParams := &OptionalParams{mediaType: "image", mediaURL: "https://25428574.fs1.hubspotusercontent-eu1.net/hubfs/25428574/D7%20Logo%20rect.webp", bodyParameterValues: map[string]interface{}{
-		"0": "Anu",
-	}}
-
-	response, err := client.whatsapp.SendWhatsAppTemplatedMessage(originator, recipient, templateID, optParams)
+	originator := "+97156XXXXXXXX"
+	recipient := "+9180867XXXXXXX"
+	messageType := "REACTION"
+	optParams := &OptionalParams{messageId: "8916e1ac-26e2-11ef-acba-0242ac1b002e", emoji: "\U0001F600"}
+	response, err := client.whatsapp.SendWhatsAppFreeformMessage(originator, recipient, messageType, optParams)
 	if err != nil {
 		t.Fatalf("Error sending WhatsApp message: %v", err)
 	}
 
 	t.Logf("WhatsApp message sent successfully. Response: %s", response)
 }
+
+
+// Whatsapp: Media: Image
+func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
+	apiToken := "Your_Api_Token"
+	client := NewClient(apiToken)
+	originator := "+97156XXXXXXXX"
+	recipient := "+9180867XXXXXXX"
+	messageType := "ATTACHMENT"
+	optParams := &OptionalParams{
+		attachmentType:"image",
+		url: "https://miro.medium.com/max/780/1*9Wdo1PuiJTZo0Du2A9JLQQ.jpeg",
+		caption: "Natural Beauty",
+	}
+	response, err := client.whatsapp.SendWhatsAppFreeformMessage(originator, recipient, messageType, optParams)
+	if err != nil {
+		t.Fatalf("Error sending WhatsApp message: %v", err)
+	}
+
+	t.Logf("WhatsApp message sent successfully. Response: %s", response)
+}
+
+
+// Whatsapp: Media: Video
+func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
+	apiToken := "Your_Api_Token"
+	client := NewClient(apiToken)
+	originator := "+97156XXXXXXXX"
+	recipient := "+9180867XXXXXXX"
+	messageType := "ATTACHMENT"
+	optParams := &OptionalParams{
+		attachmentType:"video",
+		url: "http://www.onirikal.com/videos/mp4/nestlegold.mp4",
+		caption: "D7 Video Test",
+	}
+	response, err := client.whatsapp.SendWhatsAppFreeformMessage(originator, recipient, messageType, optParams)
+	if err != nil {
+		t.Fatalf("Error sending WhatsApp message: %v", err)
+	}
+
+	t.Logf("WhatsApp message sent successfully. Response: %s", response)
+}
+
+
+// Whatsapp: Media: Documnet
+func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
+	apiToken := "Your_Api_Token"
+	client := NewClient(apiToken)
+	originator := "+97156XXXXXXXX"
+	recipient := "+9180867XXXXXXX"
+	messageType := "ATTACHMENT"
+	optParams := &OptionalParams{
+		attachmentType:"document",
+		url: "https://www.clickdimensions.com/links/TestPDFfile.pdf",
+		caption: "Test PDF file pdf",
+		fileName: "TestPDFfile.pdf",
+	}
+	response, err := client.whatsapp.SendWhatsAppFreeformMessage(originator, recipient, messageType, optParams)
+	if err != nil {
+		t.Fatalf("Error sending WhatsApp message: %v", err)
+	}
+
+	t.Logf("WhatsApp message sent successfully. Response: %s", response)
+}
+
+
+// Whatsapp: Media: Audio
+func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
+	apiToken := "Your_Api_Token"
+	client := NewClient(apiToken)
+	originator := "+97156XXXXXXXX"
+	recipient := "+9180867XXXXXXX"
+	messageType := "ATTACHMENT"
+	optParams := &OptionalParams{
+		attachmentType:"audio",
+		url: "http://fate-suite.ffmpeg.org/mpegaudio/extra_overread.mp3",
+	}
+	response, err := client.whatsapp.SendWhatsAppFreeformMessage(originator, recipient, messageType, optParams)
+	if err != nil {
+		t.Fatalf("Error sending WhatsApp message: %v", err)
+	}
+
+	t.Logf("WhatsApp message sent successfully. Response: %s", response)
+}
+
+// Whatsapp: Media: Sticker
+func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
+	apiToken := "Your_Api_Token"
+	client := NewClient(apiToken)
+	originator := "+97156XXXXXXXX"
+	recipient := "+9180867XXXXXXX"
+	messageType := "ATTACHMENT"
+	optParams := &OptionalParams{
+		attachmentType:"sticker",
+		url: "https://raw.githubusercontent.com/sagarbhavsar4328/dummys3bucket/master/sample3.webp",
+	}
+	response, err := client.whatsapp.SendWhatsAppFreeformMessage(originator, recipient, messageType, optParams)
+	if err != nil {
+		t.Fatalf("Error sending WhatsApp message: %v", err)
+	}
+
+	t.Logf("WhatsApp message sent successfully. Response: %s", response)
+}
+
+Whatsapp: Location
+func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
+	apiToken := "Your_Api_Token"
+	client := NewClient(apiToken)
+	originator := "+97156XXXXXXXX"
+	recipient := "+9180867XXXXXXX"
+	messageType := "LOCATION"
+	optParams := &OptionalParams{
+		longitude: "77.1249",
+		latitude: "12.8779",
+		name: "NameOfLocation",
+		address: "AddressOfLocation",
+	}
+	response, err := client.whatsapp.SendWhatsAppFreeformMessage(originator, recipient, messageType, optParams)
+	if err != nil {
+		t.Fatalf("Error sending WhatsApp message: %v", err)
+	}
+
+	t.Logf("WhatsApp message sent successfully. Response: %s", response)
+}
+
+
+// Whatsapp: Contacts
+func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
+	apiToken := "Your_Api_Token"
+	client := NewClient(apiToken)
+	originator := "+97156XXXXXXXX"
+	recipient := "+9180867XXXXXXX"
+	messageType := "CONTACTS"
+	contactAddresses := []map[string]string{
+        {
+            "Street":      "1 Lucky Shrub Way",
+            "City":        "Menlo Park",
+            "State":       "CA",
+            "Zip":         "94025",
+            "Country":     "United States",
+            "CountryCode": "US",
+            "Type":        "WORK",
+        },
+        {
+            "Street":      "1 Hacker Way",
+            "City":        "Menlo Park",
+            "State":       "CA",
+            "Zip":         "94025",
+            "Country":     "United States",
+            "CountryCode": "US",
+            "Type":        "WORK",
+        },
+    }
+    phones := []map[string]string{
+        {
+            "Phone": "+16505559999",
+            "Type":  "HOME",
+        },
+        {
+            "Phone": "+19175559999",
+            "Type":  "WORK",
+            "WaID":  "19175559999",
+        },
+    }
+    emails := []map[string]string{
+        {
+            "Email": "bjohnson@luckyshrub.com",
+            "Type":  "WORK",
+        },
+        {
+            "Email": "bjohnson@luckyshrubplants.com",
+            "Type":  "HOME",
+        },
+    }
+    urls := []map[string]string{
+        {
+            "URL":  "https://www.luckyshrub.com",
+            "Type": "WORK",
+        },
+        {
+            "URL":  "https://www.facebook.com/luckyshrubplants",
+            "Type": "WORK",
+        },
+    }
+    optParams := &OptionalParams{
+        firstName:        "Alice",
+        lastName:         "Jane",
+        formattedName:    "Alice Jane",
+        middleName:       "Joana",
+        suffix:           "Esq.",
+        prefix:           "Dr.",
+        phones:           phones,
+        emails:           emails,
+        contactAddresses: contactAddresses,
+        urls:             urls,
+    }
+	response, err := client.whatsapp.SendWhatsAppFreeformMessage(originator, recipient, messageType, optParams)
+	if err != nil {
+		t.Fatalf("Error sending WhatsApp message: %v", err)
+	}
+
+	t.Logf("WhatsApp message sent successfully. Response: %s", response)
+}
+
+
+// Whatsapp: Interactive: cta
+func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
+	apiToken := "Your_Api_Token"
+	client := NewClient(apiToken)
+	originator := "+97156XXXXXXXX"
+	recipient := "+9180867XXXXXXX"
+	interactiveType := "cta_url"
+	parameters := map[string]interface{}{
+        "display_text": "Visit Us",
+		"url": "https://www.luckyshrub.com?clickID=kqDGWd24Q5TRwoEQTICY7W1JKoXvaZOXWAS7h1P76s0R7Paec4",
+    }
+	optParams := &OptionalParams{
+		headerType: "text",
+		headerText: "Payment$ for D7 Whatsapp Service",
+		bodyText: "Direct7 Networks is a messaging service provider that specializes in helping organizations efficiently communicate with their customers.",
+		footerText: "Thank You",
+		parameters: parameters,
+	}
+	response, err := client.whatsapp.SendWhatsAppInteractiveMessage(originator, recipient, interactiveType, optParams)
+	if err != nil {
+		t.Fatalf("Error sending WhatsApp message: %v", err)
+	}
+
+	t.Logf("WhatsApp message sent successfully. Response: %s", response)
+}
+
+
+// Whatsapp: Interactive: button
+func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
+	apiToken := "Your_Api_Token"
+	client := NewClient(apiToken)
+	originator := "+97156XXXXXXXX"
+	recipient := "+9180867XXXXXXX"
+	interactiveType := "list"
+	sections := []map[string]interface{}{
+		{
+			"title": "SMS Messaging",
+			"rows": []map[string]interface{}{
+				{
+					"id":          "1",
+					"title":       "Normal SMS",
+					"description": "Signup for free at the D7 platform to use our Messaging APIs.",
+				},
+				{
+					"id":          "2",
+					"title":       "Verify",
+					"description": "D7 Verify API is to applications requires SMS based OTP authentications.",
+				},
+			},
+		},
+		{
+			"title": "Whatsapp",
+			"rows": []map[string]interface{}{
+				{
+					"id":          "3",
+					"title":       "WhatsApp Messages",
+					"description": "D7 Whatsapp API is to applications requires pre-registration.",
+				},
+			},
+		},
+	}
+	optParams := &OptionalParams{
+		headerType: "text",
+		headerText: "Payment$ for D7 Whatsapp Service",
+		bodyText: "Direct7 Networks is a messaging service provider that specializes in helping organizations efficiently communicate with their customers.",
+		footerText: "Thank You",
+		sections: sections,
+		listButtonText: "Choose Service",
+	}
+	response, err := client.whatsapp.SendWhatsAppInteractiveMessage(originator, recipient, interactiveType, optParams)
+	if err != nil {
+		t.Fatalf("Error sending WhatsApp message: %v", err)
+	}
+
+	t.Logf("WhatsApp message sent successfully. Response: %s", response)
+}
+
+
+// // Whatsapp: // Templated: no body parm
+func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
+	apiToken := "Your_Api_Token"
+	client := NewClient(apiToken)
+	originator := "+97156XXXXXXXX"
+	recipient := "+9180867XXXXXXX"
+	templateId := "testing_alpha"
+	language := "en"
+	optParams := &OptionalParams{
+	}
+	response, err := client.whatsapp.SendWhatsAppTemplatedMessage(originator, recipient, templateId, language, optParams)
+	if err != nil {
+		t.Fatalf("Error sending WhatsApp message: %v", err)
+	}
+
+	t.Logf("WhatsApp message sent successfully. Response: %s", response)
+}
+
+
+// Whatsapp: // Templated: with body parm
+func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
+	apiToken := "Your_Api_Token"
+	client := NewClient(apiToken)
+	originator := "+97156XXXXXXXX"
+	recipient := "+9180867XXXXXXX"
+	templateId := "with_personalize"
+	language := "en"
+	optParams := &OptionalParams{bodyParameterValues: map[string]interface{}{
+				"0": "Anu",
+	}}
+	response, err := client.whatsapp.SendWhatsAppTemplatedMessage(originator, recipient, templateId, language, optParams)
+	if err != nil {
+		t.Fatalf("Error sending WhatsApp message: %v", err)
+	}
+
+	t.Logf("WhatsApp message sent successfully. Response: %s", response)
+}
+
+
+// // Whatsapp: Templated: media: text
+func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
+	apiToken := "Your_Api_Token"
+	client := NewClient(apiToken)
+	originator := "+97156XXXXXXXX"
+	recipient := "+9180867XXXXXXX"
+	templateId := "header_param"
+	language := "en"
+	optParams := &OptionalParams{textHeaderTitle: "Tom"}
+	response, err := client.whatsapp.SendWhatsAppTemplatedMessage(originator, recipient, templateId, language, optParams)
+	if err != nil {
+		t.Fatalf("Error sending WhatsApp message: %v", err)
+	}
+
+	t.Logf("WhatsApp message sent successfully. Response: %s", response)
+}
+
+
+// // Whatsapp: Templated: media: image
+func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
+	apiToken := "Your_Api_Token"
+	client := NewClient(apiToken)
+	originator := "+97156XXXXXXXX"
+	recipient := "+9180867XXXXXXX"
+	templateId := "image"
+	language := "en"
+	optParams := &OptionalParams{mediaType: "image", mediaURL: "https://miro.medium.com/max/780/1*9Wdo1PuiJTZo0Du2A9JLQQ.jpeg"}
+	response, err := client.whatsapp.SendWhatsAppTemplatedMessage(originator, recipient, templateId, language, optParams)
+	if err != nil {
+		t.Fatalf("Error sending WhatsApp message: %v", err)
+	}
+
+	t.Logf("WhatsApp message sent successfully. Response: %s", response)
+}
+
+
+// // Whatsapp: Templated: media: video
+func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
+	apiToken := "Your_Api_Token"
+	client := NewClient(apiToken)
+	originator := "+97156XXXXXXXX"
+	recipient := "+9180867XXXXXXX"
+	templateId := "video"
+	language := "en"
+	optParams := &OptionalParams{mediaType: "video", mediaURL: "http://www.onirikal.com/videos/mp4/nestlegold.mp4"}
+	response, err := client.whatsapp.SendWhatsAppTemplatedMessage(originator, recipient, templateId, language, optParams)
+	if err != nil {
+		t.Fatalf("Error sending WhatsApp message: %v", err)
+	}
+
+	t.Logf("WhatsApp message sent successfully. Response: %s", response)
+}
+
+// // Whatsapp: Templated: media: document
+func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
+	apiToken := "Your_Api_Token"
+	client := NewClient(apiToken)
+	originator := "+97156XXXXXXXX"
+	recipient := "+9180867XXXXXXX"
+	templateId := "document"
+	language := "en"
+	optParams := &OptionalParams{
+		bodyParameterValues: map[string]interface{}{ "0": "Anu", },
+		mediaType: "document", 
+		mediaURL: "https://www.clickdimensions.com/links/TestPDFfile.pdf"}
+	response, err := client.whatsapp.SendWhatsAppTemplatedMessage(originator, recipient, templateId, language, optParams)
+	if err != nil {
+		t.Fatalf("Error sending WhatsApp message: %v", err)
+	}
+
+	t.Logf("WhatsApp message sent successfully. Response: %s", response)
+}
+
+
+// // Whatsapp: Templated: media: location
+func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
+	apiToken := "Your_Api_Token"
+	client := NewClient(apiToken)
+	originator := "+97156XXXXXXXX"
+	recipient := "+9180867XXXXXXX"
+	templateId := "location"
+	language := "en"
+	optParams := &OptionalParams{
+		mediaType: "location", 
+		latitude : "12.93803129081362", 
+		longitude : "77.61088653615994",
+		name : "Mobile Pvt Ltd", 
+		address : "Bengaluru, Karnataka 560095",
+	}
+	response, err := client.whatsapp.SendWhatsAppTemplatedMessage(originator, recipient, templateId, language, optParams)
+	if err != nil {
+		t.Fatalf("Error sending WhatsApp message: %v", err)
+	}
+
+	t.Logf("WhatsApp message sent successfully. Response: %s", response)
+}
+
+
+// // Whatsapp: Templated: quick_replies
+func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
+	apiToken := "Your_Api_Token"
+	client := NewClient(apiToken)
+	originator := "+97156XXXXXXXX"
+	recipient := "+9180867XXXXXXX"
+	templateId := "quick_reply"
+	language := "en"
+	quickReplies := []map[string]interface{}{
+		{
+			"button_index": "0",
+			"button_payload": "1",
+		},
+		{
+			"button_index": "1",
+			"button_payload": "2",
+		},
+	}
+	optParams := &OptionalParams{
+		quickReplies: quickReplies,
+	}
+	response, err := client.whatsapp.SendWhatsAppTemplatedMessage(originator, recipient, templateId, language, optParams)
+	if err != nil {
+		t.Fatalf("Error sending WhatsApp message: %v", err)
+	}
+
+	t.Logf("WhatsApp message sent successfully. Response: %s", response)
+}
+
+// // Whatsapp: Templated: actions
+func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
+	apiToken := "Your_Api_Token"
+	client := NewClient(apiToken)
+	originator := "+97156XXXXXXXX"
+	recipient := "+9180867XXXXXXX"
+	templateId := "call_to_action"
+	language := "en"
+	actions := []map[string]interface{}{
+		{
+			"action_type": "url",
+			"action_index": "0",
+			"action_payload": "dash",
+		},
+	}
+	optParams := &OptionalParams{
+		actions: actions,
+	}
+	response, err := client.whatsapp.SendWhatsAppTemplatedMessage(originator, recipient, templateId, language, optParams)
+	if err != nil {
+		t.Fatalf("Error sending WhatsApp message: %v", err)
+	}
+
+	t.Logf("WhatsApp message sent successfully. Response: %s", response)
+}
+
+
+// Whatsapp: Templated: coupon_code
+func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
+	apiToken := "Your_Api_Token"
+	client := NewClient(apiToken)
+	originator := "+97156XXXXXXXX"
+	recipient := "+9180867XXXXXXX"
+	templateId := "coupon_code"
+	language := "en"
+	optParams := &OptionalParams{bodyParameterValues: map[string]interface{}{
+				"0": "Anu",},
+				couponCode: "DER556"}
+
+	response, err := client.whatsapp.SendWhatsAppTemplatedMessage(originator, recipient, templateId, language, optParams)
+	if err != nil {
+		t.Fatalf("Error sending WhatsApp message: %v", err)
+	}
+
+	t.Logf("WhatsApp message sent successfully. Response: %s", response)
+}
+
+// Whatsapp: Templated: LTO
+func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
+	apiToken := "Your_Api_Token"
+	client := NewClient(apiToken)
+	originator := "+97156XXXXXXXX"
+	recipient := "+9180867XXXXXXX"
+	templateId := "coupon_code"
+	language := "en"
+	optParams := &OptionalParams{
+		mediaURL:               "https://miro.medium.com/max/780/1*9Wdo1PuiJTZo0Du2A9JLQQ.jpeg",
+		ltoExpirationTimeMS:    "1704272804",
+		couponCode:             "DWS44",
+	}
+
+	response, err := client.whatsapp.SendWhatsAppTemplatedMessage(originator, recipient, templateId, language, optParams)
+	if err != nil {
+		t.Fatalf("Error sending WhatsApp message: %v", err)
+	}
+
+	t.Logf("WhatsApp message sent successfully. Response: %s", response)
+}
+
+
+
 
 func TestWhatsappGetStatus(t *testing.T) {
 	apiToken := "Your_Api_Token"
@@ -203,130 +722,6 @@ func TestWhatsappGetStatus(t *testing.T) {
 	}
 
 	t.Logf("Whatsapp message status retrieved successfully. Response: %s", response)
-}
-
-func TestWhatsAppSendWhatsAppFreeformMessage(t *testing.T) {
-	apiToken := "API TOKEN"
-	client := NewClient(apiToken)
-	originator := "+XXXXXXXXXXXXXXXX"
-	recipient := "XXXXXXXXXXXXXXXX"
-	messageType := "CONTACTS"
-	optParams := &OptionalParams{
-		firstName:     "Amal",
-		lastName:      "Anu",
-		formattedName: "Amal Anu",
-		phones:        []map[string]string{{"phone": "9181XXXXXXXX"}, {"phone": "9181XXXXXXXX"}},
-		emails:        []map[string]string{{"email": "amal@gmail.com"}, {"email": "amal@gmail1.com"}},
-	}
-	response, err := client.whatsapp.SendWhatsAppFreeformMessage(originator, recipient, messageType, optParams)
-	if err != nil {
-		t.Fatalf("Error sending WhatsApp message: %v", err)
-	}
-
-	t.Logf("WhatsApp message sent successfully. Response: %s", response)
-}
-
-func TestWhatsAppSendWhatsAppFreeformMessage_Text(t *testing.T) {
-	apiToken := "API TOKEN"
-	client := NewClient(apiToken)
-	originator := "+XXXXXXXXXXXXXXXX"
-	recipient := "XXXXXXXXXXXXXXXX"
-	messageType := "TEXT"
-	optParams := &OptionalParams{
-		body: "Hi",
-	}
-	response, err := client.whatsapp.SendWhatsAppFreeformMessage(originator, recipient, messageType, optParams)
-	if err != nil {
-		t.Fatalf("Error sending WhatsApp message: %v", err)
-	}
-
-	t.Logf("WhatsApp message sent successfully. Response: %s", response)
-}
-
-func TestWhatsAppSendWhatsAppFreeformMessage_Attachment(t *testing.T) {
-	apiToken := "API TOKEN"
-	client := NewClient(apiToken)
-	originator := "+XXXXXXXXXXXXXXXX"
-	recipient := "XXXXXXXXXXXXXXXX"
-	messageType := "ATTACHMENT"
-	optParams := &OptionalParams{
-		attachmentType:    "image",
-		attachmentURL:     "https://upload.wikimedia.org",
-		attachmentCaption: "Test",
-	}
-	response, err := client.whatsapp.SendWhatsAppFreeformMessage(originator, recipient, messageType, optParams)
-	if err != nil {
-		t.Fatalf("Error sending WhatsApp message: %v", err)
-	}
-
-	t.Logf("WhatsApp message sent successfully. Response: %s", response)
-}
-
-func TestWhatsAppSendWhatsAppFreeformMessage_Location(t *testing.T) {
-	apiToken := "API TOKEN"
-	client := NewClient(apiToken)
-	// client := NewWhatsApp(&Client{NewClient(apiToken)})
-	originator := "+XXXXXXXXXXXXXXXX"
-	recipient := "XXXXXXXXXXXXXXXX"
-	messageType := "LOCATION"
-	optParams := &OptionalParams{
-		latitude:     "12.93803129081362",
-		longitude:    "77.61088653615994",
-		name:         "Karix Mobile Pvt Ltd",
-		address:      "30, Hosur Rd, 7th Block, Koramangala, Bengaluru, Karnataka 560095",
-	}
-	response, err := client.whatsapp.SendWhatsAppFreeformMessage(originator, recipient, messageType, optParams)
-	if err != nil {
-		t.Fatalf("Error sending WhatsApp message: %v", err)
-	}
-
-	t.Logf("WhatsApp message sent successfully. Response: %s", response)
-}
-
-func TestWhatsAppSendWhatsAppTemplatedMessageLto(t *testing.T) {
-	apiToken := "API TOKEN"
-	client := NewClient(apiToken)
-	originator := "+XXXXXXXXXXXXXXXX"
-	recipient := "XXXXXXXXXXXXXXXX"
-	templateID := "limited_time_offer"
-	optParams := &OptionalParams{
-		mediaURL:               "https://miro.medium.com/max/780/1*9Wdo1PuiJTZo0Du2A9JLQQ.jpeg",
-		ltoExpirationTimeMS:    "1704272804",
-		couponCode:             "DWS44",
-	}
-	response, err := client.whatsapp.SendWhatsAppTemplatedMessage(originator, recipient, templateID, optParams)
-	if err != nil {
-		t.Fatalf("Error sending WhatsApp message: %v", err)
-	}
-
-	t.Logf("WhatsApp message sent successfully. Response: %s", response)
-}
-
-func TestWhatsAppSendWhatsAppTemplatedMessageActions(t *testing.T) {
-	apiToken := "API TOKEN"
-	client := NewClient(apiToken)
-	originator := "+XXXXXXXXXXXXXXXX"
-	recipient := "XXXXXXXXXXXXXXXX"
-	templateID := "click_me"
-	bodyParameterValues:= map[string]interface{}{
-    }
-	actions := []map[string]interface{}{
-		{
-			"action_type":    "url",
-			"action_index":   "0",
-			"action_payload": "ButtonText",
-		},
-	}
-	optParams := &OptionalParams{
-		bodyParameterValues: bodyParameterValues,
-		actions: actions,
-	}
-	response, err := client.whatsapp.SendWhatsAppTemplatedMessage(originator, recipient, templateID, optParams)
-	if err != nil {
-		t.Fatalf("Error sending WhatsApp message: %v", err)
-	}
-
-	t.Logf("WhatsApp message sent successfully. Response: %s", response)
 }
 
 func TestWhatsAppSendWhatsAppTemplatedMessageCarousel(t *testing.T) {

@@ -16,26 +16,44 @@ type OptionalParams struct {
 	firstName           string
 	lastName            string
 	formattedName       string
+	middleName       	string
+	suffix				string
+	prefix				string
 	birthday            string
 	phones              []map[string]string
 	emails              []map[string]string
 	urls                []map[string]string
+	contactAddresses   	[]map[string]string
 	latitude            string
 	longitude           string
 	name                string
 	address             string
-	attachmentType      string
-	attachmentURL       string
-	attachmentCaption   string
+	attachmentType		string
+	url       			string
+	caption   			string
+	fileName   			string
 	body                string
+	messageId			string
+	emoji				string
 	mediaType           string
 	mediaURL            string
 	ltoExpirationTimeMS string
 	couponCode          string
 	bodyParameterValues map[string]interface{}
+	textHeaderTitle 	string
 	actions             any
-	quick_replies       any
-	carousel_cards      any
+	quickReplies       	any
+	carouselCards      	any
+	headerType 			string
+	headerText 			string
+	headerLink 			string
+	headerFileName 		string
+	bodyText 			string
+	footerText 			string
+	parameters 			map[string]interface{}
+	sections 			[]map[string]interface{}
+	buttons 			[]map[string]interface{}
+	listButtonText 		string
 }
 
 func (w *WhatsApp) SendWhatsAppFreeformMessage(
@@ -56,11 +74,15 @@ func (w *WhatsApp) SendWhatsAppFreeformMessage(
 				"first_name":     optParams.firstName,
 				"last_name":      optParams.lastName,
 				"formatted_name": optParams.formattedName,
+				"middle_name": optParams.middleName,
+				"suffix": optParams.suffix,
+				"prefix": optParams.prefix,
 			},
 			"birthday": optParams.birthday,
 			"phones":   optParams.phones,
 			"emails":   optParams.emails,
 			"urls":     optParams.urls,
+			"addresses": optParams.contactAddresses,
 		}
 		message["content"].(map[string]interface{})["contacts"] = []map[string]interface{}{contacts}
 	} else if messageType == "LOCATION" {
@@ -72,15 +94,30 @@ func (w *WhatsApp) SendWhatsAppFreeformMessage(
 		}
 		message["content"].(map[string]interface{})["location"] = location
 	} else if messageType == "ATTACHMENT" {
-		attachment := map[string]interface{}{
-			"type":    optParams.attachmentType,
-			"url":     optParams.attachmentURL,
-			"caption": optParams.attachmentCaption,
+		if optParams.attachmentType == "document" {
+			attachment := map[string]interface{}{
+				"type":     optParams.attachmentType,
+				"url":      optParams.url,
+				"caption":  optParams.caption,
+				"filename": optParams.fileName,
+			}
+			message["content"].(map[string]interface{})["attachment"] = attachment
+		} else {
+			attachment := map[string]interface{}{
+				"type":    optParams.attachmentType,
+				"url":     optParams.url,
+				"caption": optParams.caption,
+			}
+			message["content"].(map[string]interface{})["attachment"] = attachment
 		}
-		message["content"].(map[string]interface{})["attachment"] = attachment
 	} else if messageType == "TEXT" {
 		message["content"].(map[string]interface{})["text"] = map[string]interface{}{
 			"body": optParams.body,
+		}
+	} else if messageType == "REACTION" {
+		message["content"].(map[string]interface{})["reaction"] = map[string]interface{}{
+			"message_id": optParams.messageId,
+			"emoji": optParams.emoji,
 		}
 	}
 
@@ -93,7 +130,7 @@ func (w *WhatsApp) SendWhatsAppFreeformMessage(
 }
 
 func (w *WhatsApp) SendWhatsAppTemplatedMessage(
-	originator, recipient, templateID string, optParams *OptionalParams) (string, error) {
+	originator, recipient, templateId string, language string, optParams *OptionalParams) (string, error) {
 	message := map[string]interface{}{
 		"originator": originator,
 		"recipients": []map[string]interface{}{
@@ -102,7 +139,8 @@ func (w *WhatsApp) SendWhatsAppTemplatedMessage(
 		"content": map[string]interface{}{
 			"message_type": "TEMPLATE",
 			"template": map[string]interface{}{
-				"template_id":           templateID,
+				"template_id":	templateId,
+				"language":	language,	
 				"body_parameter_values": optParams.bodyParameterValues,
 			},
 		},
@@ -117,6 +155,11 @@ func (w *WhatsApp) SendWhatsAppTemplatedMessage(
 				"name":      optParams.name,
 				"address":   optParams.address,
 			},
+		}
+	} else if optParams.mediaType == "text" {
+		message["content"].(map[string]interface{})["template"].(map[string]interface{})["media"] = map[string]interface{}{
+			"media_type": optParams.mediaType,
+			"text_header_title":  optParams.textHeaderTitle,
 		}
 	} else if optParams.mediaType != "" {
 		message["content"].(map[string]interface{})["template"].(map[string]interface{})["media"] = map[string]interface{}{
@@ -149,15 +192,74 @@ func (w *WhatsApp) SendWhatsAppTemplatedMessage(
 		}
 	}
 
-	if optParams.quick_replies != "" {
+	if optParams.quickReplies != "" {
 		message["content"].(map[string]interface{})["template"].(map[string]interface{})["buttons"] = map[string]interface{}{
-			"quick_replies": optParams.quick_replies,
+			"quickReplies": optParams.quickReplies,
 		}
 	}
 
-	if optParams.carousel_cards != "" {
+	if optParams.carouselCards != nil {
 		message["content"].(map[string]interface{})["template"].(map[string]interface{})["carousel"] = map[string]interface{}{
-			"cards": optParams.carousel_cards,
+			"cards": optParams.carouselCards,
+		}
+	}
+
+	response, err := w.client.Post("/whatsapp/v2/send", true, map[string]interface{}{"messages": []interface{}{message}})
+	if err != nil {
+		return "", err
+	}
+	log.Println("Message sent successfully.")
+	return string(response), nil
+}
+
+
+func (w *WhatsApp) SendWhatsAppInteractiveMessage(
+	originator, recipient, interactiveType string, optParams *OptionalParams) (string, error) {
+	message := map[string]interface{}{
+		"originator": originator,
+		"recipients": []map[string]interface{}{
+			{"recipient": recipient},
+		},
+		"content": map[string]interface{}{
+			"message_type": "INTERACTIVE",
+			"interactive": map[string]interface{}{
+				"type":	interactiveType,
+				"header": map[string]interface{}{
+					"type": optParams.headerType,
+				},
+				"body": map[string]interface{}{
+					"text": optParams.bodyText,
+				},
+				"footer": map[string]interface{}{
+					"text": optParams.footerText,
+				},
+			},
+		},
+	}
+
+	if optParams.headerType == "text" {
+		message["content"].(map[string]interface{})["interactive"].(map[string]interface{})["header"].(map[string]interface{})["text"] = optParams.headerText
+	} else if optParams.headerType == "image" || optParams.headerType == "video" || optParams.headerType == "document" {
+		headerContent := map[string]interface{}{
+			"link": optParams.headerLink,
+		}
+		if optParams.headerType == "document" {
+			headerContent["filename"] = optParams.headerFileName
+		}
+		message["content"].(map[string]interface{})["interactive"].(map[string]interface{})["header"].(map[string]interface{})[optParams.headerType] = headerContent
+	}
+	if interactiveType == "cta_url" {
+		message["content"].(map[string]interface{})["interactive"].(map[string]interface{})["action"] = map[string]interface{}{
+			"parameters": optParams.parameters,
+		}
+	} else if interactiveType == "button" {
+		message["content"].(map[string]interface{})["interactive"].(map[string]interface{})["action"] = map[string]interface{}{
+			"buttons": optParams.buttons,
+		}
+	} else if interactiveType == "list" {
+		message["content"].(map[string]interface{})["interactive"].(map[string]interface{})["action"] = map[string]interface{}{
+			"sections": optParams.sections,
+			"button": optParams.listButtonText,
 		}
 	}
 

@@ -167,11 +167,12 @@ import (
     )   
 apiToken := "Your Api Token"
 client := direct7.NewClient(apiToken)
-whatsapp := direct7.NewWhatsApp(client)
-originator := "+9190XXXXXXXX"
-recipient := "+919999XXXXXX"
+originator := "{registered_phonenumber}"
+recipient := "{recipient}"
 messageType := "TEXT"
-optParams := &OptionalParams{messageText: "HI"}
+optParams := &OptionalParams{
+    body: "Hi",
+}
 response, err := whatsapp.SendWhatsAppFreeformMessage(originator, recipient, messageType, optParams)
 
 ```
@@ -185,14 +186,42 @@ import (
 apiToken := "Your Api Token"
 client := direct7.NewClient(apiToken)
 whatsapp := direct7.NewWhatsApp(client)
-originator := "+919061525574"
-recipient := "+919999XXXXXX"
-templateID := "marketing_media_image"
-optParams := &OptionalParams{mediaType: "image", mediaURL: "https://25428574.fs1.hubspotusercontent-eu1.net/hubfs/25428574/D7%20Logo%20rect.webp", bodyParameterValues: map[string]interface{}{
-	"0": "Anu",
+originator := "{{originator}}"
+recipient := "{{recipient}}"
+templateId := "with_personalize"
+language := "en"
+optParams := &OptionalParams{bodyParameterValues: map[string]interface{}{
+            "0": "Anu",
 }}
 
-response, err := whatsapp.SendWhatsAppTemplatedMessage(originator, recipient, templateID, optParams)
+response, err := client.whatsapp.SendWhatsAppTemplatedMessage(originator, recipient, templateId, language, optParams)
+
+```
+
+### Send Whatsapp Interactive Message.
+
+```go
+import (
+	"github.com/d7networks/direct7-go-sdk/direct7"
+    )   
+apiToken := "Your Api Token"
+client := direct7.NewClient(apiToken)
+whatsapp := direct7.NewWhatsApp(client)
+originator := "{registered_phonenumber}"
+recipient := "{recipient}"
+interactiveType := "cta_url"
+parameters := map[string]interface{}{
+        "display_text": "Visit Us",
+    "url": "https://www.luckyshrub.com?clickID=kqDGWd24Q5TRwoEQTICY7W1JKoXvaZOXWAS7h1P76s0R7Paec4",
+    }
+optParams := &OptionalParams{
+    headerType: "text",
+    headerText: "Payment$ for D7 Whatsapp Service",
+    bodyText: "Direct7 Networks is a messaging service provider that specializes in helping organizations efficiently communicate with their customers.",
+    footerText: "Thank You",
+    parameters: parameters,
+}
+response, err := client.whatsapp.SendWhatsAppInteractiveMessage(originator, recipient, interactiveType, optParams)
 
 ```
 
