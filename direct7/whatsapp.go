@@ -265,7 +265,7 @@ func (w *WhatsApp) SendWhatsAppInteractiveMessage(
 		message["content"].(map[string]interface{})["interactive"].(map[string]interface{})["action"] = map[string]interface{}{
 			"name": "send_location",
 		}
-	} else if interactiveType == "address_message" {
+	}  else if interactiveType == "address_message" {
 		message["content"].(map[string]interface{})["interactive"].(map[string]interface{})["action"] = map[string]interface{}{
 			"parameters": optParams.parameters,
 		}
