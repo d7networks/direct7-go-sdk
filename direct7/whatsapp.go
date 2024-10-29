@@ -261,6 +261,14 @@ func (w *WhatsApp) SendWhatsAppInteractiveMessage(
 			"sections": optParams.sections,
 			"button": optParams.listButtonText,
 		}
+	} else if interactiveType == "location_request_message" {
+		message["content"].(map[string]interface{})["interactive"].(map[string]interface{})["action"] = map[string]interface{}{
+			"name": "send_location",
+		}
+	} else if interactiveType == "address_message" {
+		message["content"].(map[string]interface{})["interactive"].(map[string]interface{})["action"] = map[string]interface{}{
+			"parameters": optParams.parameters,
+		}
 	}
 
 	response, err := w.client.Post("/whatsapp/v2/send", true, map[string]interface{}{"messages": []interface{}{message}})
