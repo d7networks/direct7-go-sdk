@@ -287,3 +287,12 @@ func (w *WhatsApp) GetStatus(requestID string) (string, error) {
 	log.Println("Message status retrieved successfully.")
 	return string(response), nil
 }
+
+func (w *WhatsApp) ReadReceipt(messageID string) (string, error) {
+	response, err := w.client.Post("/whatsapp/v2/read-receipt/"+messageID, nil)
+	if err != nil {
+		return "", err
+	}
+	log.Println("Message marked as read successfully.")
+	return string(response), nil
+}
