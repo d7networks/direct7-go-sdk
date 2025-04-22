@@ -296,3 +296,12 @@ func (w *WhatsApp) ReadReceipt(messageID string) (string, error) {
 	log.Println("Message marked as read successfully.")
 	return string(response), nil
 }
+
+func (w *WhatsApp) DownloadMedia(mediaID string) (string, error) {
+	response, err := w.client.Get("/whatsapp/v2/download/"+mediaID, nil)
+	if err != nil {
+		return "", err
+	}
+	log.Println("Successfully downloaded media.")
+	return string(response), nil
+}

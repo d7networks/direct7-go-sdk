@@ -251,6 +251,19 @@ messageID := "001ff613-de30-4f82-81f6-1fe944b8f61b"
 statusResponse, err := whatsapp.ReadReceipt(messageID)
 ```
 
+### Whatsapp Download User Initiated Media
+
+```go
+import (
+	"github.com/d7networks/direct7-go-sdk/direct7"
+    )   
+apiToken := "Your Api Token"
+client := direct7.NewClient(apiToken)
+whatsapp := direct7.NewWhatsApp(client)
+mediaID := "16543434344232"
+statusResponse, err := whatsapp.DownloadMedia(messageID)
+```
+
 ### Number Lookup
 
 ### Search Phone Number Details
