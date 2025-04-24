@@ -13,13 +13,14 @@ func NewSMS(client *Client) *SMS {
 	return &SMS{client: client}
 }
 
-func (s *SMS) SendMessages(messages []Message, originator, reportURL, scheduleTime string) (string, error) {
+func (s *SMS) SendMessages(messages []Message, originator, reportURL, scheduleTime, tag string) (string, error) {
 	payload := MessagePayload{
 		Messages: messages,
 		MessageGlobals: MessageGlobals{
 			Originator:   originator,
 			ReportURL:    reportURL,
 			ScheduleTime: scheduleTime,
+			Tag: tag,
 		},
 	}
 	response, err := s.client.Post("/messages/v1/send", true, payload)
@@ -48,6 +49,7 @@ type MessageGlobals struct {
 	Originator   string `json:"originator"`
 	ReportURL    string `json:"report_url,omitempty"`
 	ScheduleTime string `json:"schedule_time,omitempty"`
+    Tag string `json:"tag,omitempty"`
 }
 
 type Message struct {
