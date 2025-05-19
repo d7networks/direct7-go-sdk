@@ -159,7 +159,7 @@ func TestViberGetStatus(t *testing.T) {
 	t.Logf("Viber message status retrieved successfully. Response: %s", response)
 }
 
-Whatsapp: Text
+// Whatsapp: Text
 func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
 	apiToken := "Your_Api_Token"
 	client := NewClient(apiToken)
@@ -294,7 +294,7 @@ func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
 	t.Logf("WhatsApp message sent successfully. Response: %s", response)
 }
 
-Whatsapp: Location
+// Whatsapp: Location
 func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
 	apiToken := "Your_Api_Token"
 	client := NewClient(apiToken)
@@ -421,7 +421,40 @@ func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
 	t.Logf("WhatsApp message sent successfully. Response: %s", response)
 }
 
+// WhatsApp :Interactive flow
+func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
+	apiToken := "Your_Api_Token"
+	client := NewClient(apiToken)
+	originator := "+97156XXXXXXXX"
+	recipient := "+9180867XXXXXXX"
+	interactiveType := "flow"
+	flowParameter := map[string]interface{}{
+        "name": "flow",
+        "parameters": map[string]interface{}{
+            "flow_message_version": "3",
+            "flow_token":           "unused",
+            "flow_id":              "530404409952136",
+            "flow_cta":             "Book Demo",
+            "flow_action":          "navigate",
+            "flow_action_payload": map[string]interface{}{
+                "screen": "screen_",
+            },
+        },
+    }
+	 optParams := &OptionalParams{
+        headerType: "text",
+        headerText: "Payment$ for D7 Whatsapp Service",
+        bodyText: "Direct7 Networks is a messaging service provider that specializes in helping organizations efficiently communicate with their customers.",
+        footerText: "Thank You",
+        parameters: flowParameter,
+    }
+    response, err := client.whatsapp.SendWhatsAppInteractiveMessage(originator, recipient, interactiveType, optParams)
+	if err != nil {
+		t.Fatalf("Error sending WhatsApp message: %v", err)
+	}
 
+	t.Logf("WhatsApp message sent successfully. Response: %s", response)
+}
 // Whatsapp: Interactive: button
 func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
 	apiToken := "Your_Api_Token"
@@ -638,6 +671,29 @@ func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
 
 	t.Logf("WhatsApp message sent successfully. Response: %s", response)
 }
+//    WhatsApp :Templated :button_flow
+func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
+	apiToken := "Your_Api_Token"
+	client := NewClient(apiToken)
+	originator := "+97156XXXXXXXX"
+	recipient := "+9180867XXXXXXX"
+	templateId := "call_to_action"
+	language := "en"
+	buttonFlow := []map[string]interface{}{
+		{
+			"flow_token":     "unused",
+			"action_type":    "flow",
+			"index":          "0",
+			"flow_action_data": map[string]interface{}{},
+		},
+	}
+	optParams := &OptionalParams{
+		ButtonFlow: buttonFlow,
+	}
+	response, err := client.whatsapp.SendWhatsAppTemplatedMessage(originator, recipient, templateId, language, optParams)
+	if err != nil {
+		t.Fatalf("Error sending WhatsApp message: %v", err)
+	}
 
 // // Whatsapp: Templated: actions
 func TestWhatsAppSendWhatsAppFreeformMessageText(t *testing.T) {
