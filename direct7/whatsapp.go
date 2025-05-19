@@ -42,6 +42,7 @@ type OptionalParams struct {
 	bodyParameterValues map[string]interface{}
 	textHeaderTitle 	string
 	actions             any
+	ButtonFlow          any
 	quickReplies       	any
 	carouselCards      	any
 	headerType 			string
@@ -174,29 +175,63 @@ func (w *WhatsApp) SendWhatsAppTemplatedMessage(
 		}
 	}
 
-	if optParams.couponCode != "" {
-		message["content"].(map[string]interface{})["template"].(map[string]interface{})["buttons"] = map[string]interface{}{
-			"coupon_code": []map[string]interface{}{
+    if optParams.couponCode != "" || optParams.actions != "" || optParams.ButtonFlow != "" || optParams.quickReplies != "" {
+		buttons := make(map[string]interface{})
+
+		if optParams.couponCode != "" {
+			buttons["coupon_code"] = []map[string]interface{}{
 				{
 					"index":       0,
 					"type":        "copy_code",
 					"coupon_code": optParams.couponCode,
 				},
-			},
+			}
 		}
-	}
 
-	if optParams.actions != "" {
-		message["content"].(map[string]interface{})["template"].(map[string]interface{})["buttons"] = map[string]interface{}{
-			"actions": optParams.actions,
+		if optParams.actions != "" {
+			buttons["actions"] = optParams.actions
 		}
-	}
 
-	if optParams.quickReplies != "" {
-		message["content"].(map[string]interface{})["template"].(map[string]interface{})["buttons"] = map[string]interface{}{
-			"quickReplies": optParams.quickReplies,
+		if optParams.ButtonFlow != "" {
+			buttons["button_flow"] = optParams.ButtonFlow
 		}
+
+		if optParams.quickReplies != "" {
+			buttons["quickReplies"] = optParams.quickReplies
+		}
+
+		message["content"].(map[string]interface{})["template"].(map[string]interface{})["buttons"] = buttons
 	}
+// 	if optParams.couponCode != "" {
+// 		message["content"].(map[string]interface{})["template"].(map[string]interface{})["buttons"] = map[string]interface{}{
+// 			"coupon_code": []map[string]interface{}{
+// 				{
+// 					"index":       0,
+// 					"type":        "copy_code",
+// 					"coupon_code": optParams.couponCode,
+// 				},
+// 			},
+// 		}
+// 	}
+//
+// 	if optParams.actions != "" {
+// 		message["content"].(map[string]interface{})["template"].(map[string]interface{})["buttons"] = map[string]interface{}{
+// 			"actions": optParams.actions,
+// 		}
+// 	}
+//
+//        log.Printf("OptionalParams: %+v", optParams)
+//     if optParams.ButtonFlow != "" {
+//      log.Printf("Optional-----Params: %+v", optParams)
+//             message["content"].(map[string]interface{})["template"].(map[string]interface{})["buttons"] = map[string]interface{}{
+// 			    "button_flow": optParams.ButtonFlow,
+// 		    }
+//      }
+// 	if optParams.quickReplies != "" {
+// 		message["content"].(map[string]interface{})["template"].(map[string]interface{})["buttons"] = map[string]interface{}{
+// 			"quickReplies": optParams.quickReplies,
+// 		}
+// 	}
 
 	if optParams.carouselCards != nil {
 		message["content"].(map[string]interface{})["template"].(map[string]interface{})["carousel"] = map[string]interface{}{
@@ -261,7 +296,9 @@ func (w *WhatsApp) SendWhatsAppInteractiveMessage(
 			"sections": optParams.sections,
 			"button": optParams.listButtonText,
 		}
-	} else if interactiveType == "location_request_message" {
+	} else if interactiveType == "flow" {
+        message["content"].(map[string]interface{})["interactive"].(map[string]interface{})["action"] = optParams.parameters
+    } else if interactiveType == "location_request_message" {
 		message["content"].(map[string]interface{})["interactive"].(map[string]interface{})["action"] = map[string]interface{}{
 			"name": "send_location",
 		}
