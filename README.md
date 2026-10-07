@@ -42,6 +42,7 @@ In order to initiate API requests, create a client object using your Direct7 API
 
 - [SMS](#sms)
 - [Verify](#verify)
+- [Verify V2](#verify-v2)
 - [Whatsapp](#whatsapp)
 - [Number Lookup](#number-lookup)
 - [Viber](#viber)
@@ -155,6 +156,66 @@ response, err := verify.VerifyOTP(otpID, otpCode)
     verify := direct7.NewVerify(client)
     requestID := "001ff613-de30-4f82-81f6-1fe944b8f61b"
     statusResponse, err := verify.GetStatus(requestID)
+```
+
+### Verify V2
+
+Verify V2 is available under `verify.V2`. Existing `verify` calls continue to use V1.
+
+### Send OTP (V2)
+
+V2 uses a verification flow created in the dashboard (channels, language and message are configured in the flow).
+
+```go
+import (
+	"github.com/d7networks/direct7-go-sdk/direct7"
+)
+apiToken := "Your Api Token"
+client := direct7.NewClient(apiToken)
+verify := direct7.NewVerify(client)
+recipient := "+919999XXXXXX"
+flowID := "Your flow ID"
+response, err := verify.V2.SendOTP(recipient, flowID)
+```
+
+### Re-Send OTP (V2)
+
+```go
+import (
+	"github.com/d7networks/direct7-go-sdk/direct7"
+)
+apiToken := "Your Api Token"
+client := direct7.NewClient(apiToken)
+verify := direct7.NewVerify(client)
+otpID := "aeffa23f-1204-4e17-bb91-adf6de2cf826"
+response, err := verify.V2.ResendOTP(otpID)
+```
+
+### Verify OTP (V2)
+
+```go
+import (
+	"github.com/d7networks/direct7-go-sdk/direct7"
+)
+apiToken := "Your Api Token"
+client := direct7.NewClient(apiToken)
+verify := direct7.NewVerify(client)
+otpID := "32549451-0eb6-4788-8e91-32b2eb9c4260"
+otpCode := "803053"
+response, err := verify.V2.VerifyOTP(otpID, otpCode)
+```
+
+### Check Verify Request Status (V2)
+
+```go
+import (
+	"github.com/d7networks/direct7-go-sdk/direct7"
+)
+apiToken := "Your Api Token"
+client := direct7.NewClient(apiToken)
+verify := direct7.NewVerify(client)
+otpID := "32549451-0eb6-4788-8e91-32b2eb9c4260"
+statusResponse, err := verify.V2.GetStatus(otpID)
 ```
 
 ### Whatsapp

@@ -8,10 +8,11 @@ import (
 
 type Verify struct {
 	client *Client
+	V2     *VerifyV2
 }
 
 func NewVerify(client *Client) *Verify {
-	return &Verify{client: client}
+	return &Verify{client: client, V2: NewVerifyV2(client)}
 }
 
 func (v *Verify) SendOTP(originator, recipient, content, dataCoding string, expiry int, templateID int) (string, error) {
@@ -75,6 +76,70 @@ func (v *Verify) VerifyOTP(otpID, otpCode string) (string, error) {
 
 func (v *Verify) GetStatus(otpID string) (string, error) {
 	response, err := v.client.Get("/verify/v1/report/"+otpID, nil)
+	if err != nil {
+		return "", err
+	}
+	log.Println("OTP message status retrieved successfully.")
+	return string(response), nil
+}
+
+type VerifyV2 struct {
+	client *Client
+}
+
+func NewVerifyV2(client *Client) *VerifyV2 {
+	return &VerifyV2{client: client}
+}
+
+func (v *VerifyV2) SendOTP(recipient, flowID string) (string, error) {
+	params := map[string]interface{}{
+		"recipient": recipient,
+		"flow_id":   flowID,
+	}
+	response, err := v.client.Post("/verify/v2/otp/send-otp", true, params)
+	if err != nil {
+		return "", err
+	}
+	log.Println("OTP message sent successfully.")
+	return string(response), nil
+}
+
+func (v *VerifyV2) ResendOTP(otpID string) (string, error) {
+	otpUUID, err := uuid.Parse(otpID)
+	if err != nil {
+		return "", fmt.Errorf("error parsing OTP ID: %v", err)
+	}
+
+	params := map[string]interface{}{
+		"otp_id": otpUUID,
+	}
+	response, err := v.client.Post("/verify/v2/otp/resend-otp", true, params)
+	if err != nil {
+		return "", err
+	}
+	log.Println("OTP message re-sent successfully.")
+	return string(response), nil
+}
+
+func (v *VerifyV2) VerifyOTP(otpID, otpCode string) (string, error) {
+	otpUUID, err := uuid.Parse(otpID)
+	if err != nil {
+		return "", fmt.Errorf("error parsing OTP ID: %v", err)
+	}
+	params := map[string]interface{}{
+		"otp_id":   otpUUID,
+		"otp_code": otpCode,
+	}
+	response, err := v.client.Post("/verify/v2/otp/verify-otp", true, params)
+	if err != nil {
+		return "", err
+	}
+	log.Println("OTP message verified successfully.")
+	return string(response), nil
+}
+
+func (v *VerifyV2) GetStatus(otpID string) (string, error) {
+	response, err := v.client.Get("/verify/v2/report/"+otpID, nil)
 	if err != nil {
 		return "", err
 	}
